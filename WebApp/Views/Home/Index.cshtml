@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Entities.Product>
+@{
+    ViewBag.Title = "Home Page";
+}
+<br />
+<ul id="ulProducts"></ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var ulProducts = $('#ulProducts');
+
+        $.ajax({
+            url: "http://localhost:8080/api/directories",
+            contentType: "application/json; charset=utf-8",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                ulProducts.empty();
+                data.forEach(function (item) {
+                    var li = document.createElement("li");
+                    var text = document.createTextNode(item);
+                    li.appendChild(text);
+                    document.getElementById("ulProducts").appendChild(li);
+                });
+            }
+        });
+    });
+
+</script>
